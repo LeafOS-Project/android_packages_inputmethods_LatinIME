@@ -39,7 +39,7 @@ const int Dictionary::HEADER_ATTRIBUTE_BUFFER_SIZE = 32;
 Dictionary::Dictionary(JNIEnv *env, DictionaryStructureWithBufferPolicy::StructurePolicyPtr
         dictionaryStructureWithBufferPolicy)
         : mDictionaryStructureWithBufferPolicy(std::move(dictionaryStructureWithBufferPolicy)),
-          mGestureSuggest(new Suggest(GestureSuggestPolicyFactory::getGestureSuggestPolicy())),
+          mGestureSuggest(new Suggest(TypingSuggestPolicyFactory::getTypingSuggestPolicy())),
           mTypingSuggest(new Suggest(TypingSuggestPolicyFactory::getTypingSuggestPolicy())) {
     logDictionaryInfo(env);
 }
