@@ -1,0 +1,21 @@
+{
+  "comments": [
+    {
+      "unresolved": false,
+      "key": {
+        "uuid": "c1f38d1d_fcf97dfe",
+        "filename": "/PATCHSET_LEVEL",
+        "patchSetId": 1
+      },
+      "lineNbr": 0,
+      "author": {
+        "id": 1000000
+      },
+      "writtenOn": "2023-03-05T08:56:39Z",
+      "side": 1,
+      "message": "Simply doesn\u0027t work properly\n\nIf we would be able to implement gesture suggestions and rename the lib to libjni_latinimegoogle we could have gesture inputs working",
+      "revId": "ec2e75982280708b12d8cff2f098249c4b9a6d99",
+      "serverId": "b49086b3-c06c-47ea-b69e-65c8379e1be6"
+    }
+  ]
+}
