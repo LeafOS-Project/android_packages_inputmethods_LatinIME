@@ -26,11 +26,14 @@ import android.provider.Settings.Secure;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ListView;
 
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.define.ProductionFlags;
 import com.android.inputmethod.latin.utils.ApplicationUtils;
 import com.android.inputmethod.latin.utils.FeedbackUtils;
+import com.android.inputmethod.latin.utils.JniUtils;
 import com.android.inputmethodcommon.InputMethodSettingsFragment;
 
 public final class SettingsFragment extends InputMethodSettingsFragment {
@@ -47,6 +50,7 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
         setHasOptionsMenu(true);
         setInputMethodSettingsCategoryTitle(R.string.language_selection_title);
         setSubtypeEnablerTitle(R.string.select_language);
+        setSubtypeEnablerIcon(R.drawable.ic_settings_languages);
         addPreferencesFromResource(R.xml.prefs);
         final PreferenceScreen preferenceScreen = getPreferenceScreen();
         preferenceScreen.setTitle(
@@ -55,6 +59,20 @@ public final class SettingsFragment extends InputMethodSettingsFragment {
             final Preference accountsPreference = findPreference(Settings.SCREEN_ACCOUNTS);
             preferenceScreen.removePreference(accountsPreference);
         }
+        if (!JniUtils.sHaveGestureLib) {
+            final Preference gesturePreference = findPreference(Settings.SCREEN_GESTURE);
+            preferenceScreen.removePreference(gesturePreference);
+        }
+    }
+
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        // remove dividers
+        View rootView = getView();
+        ListView list = (ListView) rootView.findViewById(android.R.id.list);
+        list.setDivider(null);
     }
 
     @Override

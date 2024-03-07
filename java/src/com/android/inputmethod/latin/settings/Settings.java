@@ -31,6 +31,7 @@ import com.android.inputmethod.latin.InputAttributes;
 import com.android.inputmethod.latin.R;
 import com.android.inputmethod.latin.common.StringUtils;
 import com.android.inputmethod.latin.utils.AdditionalSubtypeUtils;
+import com.android.inputmethod.latin.utils.JniUtils;
 import com.android.inputmethod.latin.utils.ResourceUtils;
 import com.android.inputmethod.latin.utils.RunInLocale;
 import com.android.inputmethod.latin.utils.StatsUtils;
@@ -48,6 +49,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String SCREEN_ACCOUNTS = "screen_accounts";
     public static final String SCREEN_THEME = "screen_theme";
     public static final String SCREEN_DEBUG = "screen_debug";
+    public static final String SCREEN_GESTURE = "screen_gesture";
     // In the same order as xml/prefs.xml
     public static final String PREF_AUTO_CAP = "auto_cap";
     public static final String PREF_VIBRATE_ON = "vibrate_on";
@@ -77,6 +79,7 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             BuildCompatUtils.EFFECTIVE_SDK_INT >= Build.VERSION_CODES.LOLLIPOP;
     public static final String PREF_SHOW_LANGUAGE_SWITCH_KEY =
             "pref_show_language_switch_key";
+    public static final String PREF_SHOW_EMOJI_KEY = "pref_show_emoji_key";
     public static final String PREF_INCLUDE_OTHER_IMES_IN_LANGUAGE_SWITCH_LIST =
             "pref_include_other_imes_in_language_switch_list";
     public static final String PREF_CUSTOM_INPUT_STYLES = "custom_input_styles";
@@ -100,6 +103,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     public static final String PREF_KEY_IS_INTERNAL = "pref_key_is_internal";
 
     public static final String PREF_ENABLE_METRICS_LOGGING = "pref_enable_metrics_logging";
+    public static final String PREF_SHOW_NUMBER_ROW = "pref_show_number_row";
+
+    public static final String PREF_SHOW_LONGPRESS_HINTS = "pref_show_longpress_hints";
     // This preference key is deprecated. Use {@link #PREF_SHOW_LANGUAGE_SWITCH_KEY} instead.
     // This is being used only for the backward compatibility.
     private static final String PREF_SUPPRESS_LANGUAGE_SWITCH_KEY =
@@ -111,6 +117,12 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
             "pref_last_used_personalization_dict_wiped_time";
     private static final String PREF_CORPUS_HANDLES_FOR_PERSONALIZATION =
             "pref_corpus_handles_for_personalization";
+
+    // Keyboard height (moved from debug settings)
+    public static final String PREF_KEYBOARD_HEIGHT_SCALE = "pref_keyboard_height_scale";
+
+    // Space bar trackpad slider
+    public static final String PREF_SPACE_TRACKPAD = "pref_space_trackpad";
 
     // Emoji
     public static final String PREF_EMOJI_RECENT_KEYS = "emoji_recent_keys";
@@ -230,6 +242,9 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
     }
 
     public static boolean readFromBuildConfigIfGestureInputEnabled(final Resources res) {
+        if (!JniUtils.sHaveGestureLib) {
+            return false;
+        }
         return res.getBoolean(R.bool.config_gesture_input_enabled_by_build_config);
     }
 
@@ -342,11 +357,19 @@ public final class Settings implements SharedPreferences.OnSharedPreferenceChang
         return (milliseconds != UNDEFINED_PREFERENCE_VALUE_INT) ? milliseconds : defaultValue;
     }
 
+    public static boolean readShowNumberRow(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_SHOW_NUMBER_ROW, false);
+    }
+
     public static float readKeyboardHeight(final SharedPreferences prefs,
             final float defaultValue) {
         final float percentage = prefs.getFloat(
-                DebugSettings.PREF_KEYBOARD_HEIGHT_SCALE, UNDEFINED_PREFERENCE_VALUE_FLOAT);
+                PREF_KEYBOARD_HEIGHT_SCALE, UNDEFINED_PREFERENCE_VALUE_FLOAT);
         return (percentage != UNDEFINED_PREFERENCE_VALUE_FLOAT) ? percentage : defaultValue;
+    }
+
+    public static boolean readSpaceTrackpadEnabled(final SharedPreferences prefs) {
+        return prefs.getBoolean(PREF_SPACE_TRACKPAD, true);
     }
 
     public static boolean readUseFullscreenMode(final Resources res) {

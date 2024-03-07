@@ -45,6 +45,7 @@ public class ScriptUtils {
     public static final int SCRIPT_TAMIL = 15;
     public static final int SCRIPT_TELUGU = 16;
     public static final int SCRIPT_THAI = 17;
+    public static final int SCRIPT_BULGARIAN = 18;
 
     private static final TreeMap<String, Integer> mLanguageCodeToScriptCode;
 
@@ -53,8 +54,8 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("", SCRIPT_LATIN); // default
         mLanguageCodeToScriptCode.put("ar", SCRIPT_ARABIC);
         mLanguageCodeToScriptCode.put("hy", SCRIPT_ARMENIAN);
+        mLanguageCodeToScriptCode.put("bg", SCRIPT_BULGARIAN);
         mLanguageCodeToScriptCode.put("bn", SCRIPT_BENGALI);
-        mLanguageCodeToScriptCode.put("bg", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("sr", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ru", SCRIPT_CYRILLIC);
         mLanguageCodeToScriptCode.put("ka", SCRIPT_GEORGIAN);
@@ -68,6 +69,7 @@ public class ScriptUtils {
         mLanguageCodeToScriptCode.put("ta", SCRIPT_TAMIL);
         mLanguageCodeToScriptCode.put("te", SCRIPT_TELUGU);
         mLanguageCodeToScriptCode.put("th", SCRIPT_THAI);
+        mLanguageCodeToScriptCode.put("uk", SCRIPT_CYRILLIC);
     }
 
     /*
@@ -101,6 +103,7 @@ public class ScriptUtils {
         case SCRIPT_BENGALI:
             // Bengali unicode block is U+0980..U+09FF
             return (codePoint >= 0x980 && codePoint <= 0x9FF);
+        case SCRIPT_BULGARIAN:
         case SCRIPT_CYRILLIC:
             // All Cyrillic characters are in the 400~52F block. There are some in the upper
             // Unicode range, but they are archaic characters that are not used in modern

@@ -213,7 +213,7 @@
     </switch>
     <!-- Enter key style -->
     <switch>
-        <case latin:keyboardTheme="ICS|KLP">
+        <case latin:keyboardTheme="ICS|KLP|You">
             <key-style
                 latin:styleName="defaultEnterKeyStyle"
                 latin:keySpec="!icon/enter_key|!code/key_enter"
@@ -247,13 +247,6 @@
         </case>
         <!-- Smiley in textShortMessage field.
              This <case> should be after Shift + Enter <case> and before any of action <case>. -->
-        <case
-            latin:mode="im"
-        >
-            <key-style
-                latin:styleName="enterKeyStyle"
-                latin:parentStyle="emojiKeyStyle" />
-        </case>
         <case
             latin:imeAction="actionGo"
         >
